@@ -1,0 +1,80 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+#game{
+	position: absolute;
+	width: 10000px;
+	height: 10000px;
+	background-image: url("/img/background.svg");
+	z-index: 0;
+}
+
+#game > *{
+	position: absolute;
+}
+
+table{
+	border-spacing: 0px;
+	box-sizing: content-box;
+	width: 160px;
+	height: 160px;
+	z-index: 10;
+}
+
+.boardActive{
+	padding: 10px;
+	border-radius: 7px;
+	transform: translate(210px, 10px);
+}
+
+.boardActive::after{
+	content: url("/img/arrow.svg");
+	position: absolute;
+	transform: translate(170px, -160px);
+}
+
+.boardPassive{
+	padding: 5px;
+	border-radius: 3px;
+	transform: translate(15px, 15px);
+}
+
+.boardPassive::after{
+	position: absolute;
+	content: "";
+	width: 50px;
+	height: 80px;
+	background-color: #a277b3;
+	border-top: 2px solid #684a74;
+	border-bottom: 2px solid #684a74;
+	transform: translate(165px, -120px);
+}
+
+.boardWhite{
+	background-color: #eee;
+}
+
+.boardBlack{
+	background-color: #445;
+}
+
+td{
+	width: 20px;
+	height: 20px;
+	background-color: #fad4a5;
+}
+
+tr:nth-child(2n) > td:nth-child(2n), tr:nth-child(2n+1) > td:nth-child(2n+1){
+	background-color: #d2a973;
+}
+
+.lightStep{
+	background-image: linear-gradient(#af27, #af27);
+}
+
+.lightTake{
+	background-image: linear-gradient(#f227, #f227);
+}
+
