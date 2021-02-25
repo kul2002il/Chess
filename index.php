@@ -9,34 +9,24 @@
 	<div id="game">
 		<table class="boardPassive boardWhite">
 			<tr>
-				<td class="lightStep"></td>
-				<td class="lightStep"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td class="lightStep">♜</td>
+				<td class="lightStep">♞</td>
+				<td class="lightHover">♝</td>
+				<td>♚</td>
+				<td>♛</td>
+				<td>♝</td>
+				<td>♞</td>
+				<td>♜</td>
 			</tr>
 			<tr>
-				<td class="lightTake"></td>
-				<td class="lightTake"></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td class="lightTake">♟</td>
+				<td class="lightTake">♟</td>
+				<td class="lightHover">♟</td>
+				<td>♟</td>
+				<td>♟</td>
+				<td>♟</td>
+				<td>♟</td>
+				<td>♟</td>
 			</tr>
 			<tr>
 				<td></td>
@@ -79,14 +69,24 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td class="lightTake">♙</td>
+				<td class="lightTake">♙</td>
+				<td>♙</td>
+				<td>♙</td>
+				<td>♙</td>
+				<td>♙</td>
+				<td>♙</td>
+				<td>♙</td>
+			</tr>
+			<tr>
+				<td class="lightStep">♖</td>
+				<td class="lightStep">♘</td>
+				<td>♗</td>
+				<td>♔</td>
+				<td>♕</td>
+				<td>♗</td>
+				<td>♘</td>
+				<td>♖</td>
 			</tr>
 		</table>
 		<table class="boardActive boardBlack">

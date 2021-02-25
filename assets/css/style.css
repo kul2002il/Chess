@@ -64,10 +64,15 @@ td{
 	width: 20px;
 	height: 20px;
 	background-color: #fad4a5;
+	text-align: center;
 }
 
 tr:nth-child(2n) > td:nth-child(2n), tr:nth-child(2n+1) > td:nth-child(2n+1){
 	background-color: #d2a973;
+}
+
+.lightHover{
+	background-image: linear-gradient(#44f7, #44f7);
 }
 
 .lightStep{
