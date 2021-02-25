@@ -26,7 +26,7 @@ table{
 .boardActive{
 	padding: 10px;
 	border-radius: 7px;
-	transform: translate(210px, 10px);
+	transform: translate(10px, 10px);
 }
 
 .boardActive::after{
