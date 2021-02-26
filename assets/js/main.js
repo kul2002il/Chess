@@ -5,36 +5,64 @@ class Piece
 	{
 		this.$html = document.createElement("div");
 		this.setFigure("♟");
+		this.square = undefined;
 	}
 	
-	setFigure(str)
+	setFigure(simbol)
 	{
-		this.$html.innerText = str;
+		this.simbol = simbol;
+		this.$html.innerText = simbol;
+	}
+	
+	setSquare(square)
+	{
+		square.setPiece(this);
+	}
+	
+	clone()
+	{
+		let out = new Piece(this.simbol);
+		out.setFigure()
+		return out;
+	}
+	
+	move()
+	{
+		throw "Нереализованный метод Piece::move(…).";
 	}
 }
 
 class Square
 {
-	constructor(board, piece)
+	constructor(board)
 	{
 		this.$html = document.createElement("td");
 		this.board = board;
-		setPiece(piece);
+		this.piece = undefined;
 	}
 	
 	setPiece(piece)
 	{
+		if(this.piece && this.piece != piece)
+		{
+			throw "Невохможно сходить на занятую фигурой клетку.";
+		}
 		this.piece = piece;
 		if (this.piece)
 		{
 			this.$html.append(this.piece.$html);
+			this.piece.getSquare = this;
 		}
+	}
+	getPiece()
+	{
+		return this.piece;
 	}
 }
 
 class Board
 {
-	constructor(t, m, board)
+	constructor(t, m)
 	{
 		this.$html = document.createElement("table");
 		
@@ -56,13 +84,23 @@ class Board
 			}
 			this.$html.append(row);
 		}
-		
-		if (board)
-		{
-			this.location.stepWhite = !board.location.stepWhite;
-			board; // todo: выполнить копирование
-		}
 		this.show();
+	}
+	
+	clone()
+	{
+		let out = new Board(this.location.x, this.location.y);
+		for(let i = 0; i < 8; i++)
+		{
+			for(let j = 0; j < 8; j++)
+			{
+				if (this.board[i][j].getFigure())
+				{
+					out.board[i][j].setFigure( this.board[i][j].getFigure().clone() );
+				}
+			}
+		}
+		return out;
 	}
 	
 	show()
@@ -112,7 +150,7 @@ class Timeline
 		
 		if(this.parent)
 		{
-			let end = this.parent.time.length-1
+			let end = this.parent.time.length - 1;
 			this.time = [new Board(this.parent.time[end])];
 		}
 		else
@@ -151,28 +189,35 @@ class Game
 		this.timelines = {0: new Timeline()};
 		
 		let board = this.getBoard(0, 0);
-		new Piece(board.getSquare(0,0));
-		out["board"] = (board);
+		board.getSquare(0,0).setPiece(new Piece());
+		debug["piece"] = board.getSquare(0,0).getPiece();
+		debug["board"] = board;
 	}
 	
 	getBoard(t, m)
 	{
-		if( t in this.timelines &&
-			m >= this.timelines[m].start &&
-			m <= this.timelines[m].start + this.timelines[t].time.length)
+		if (t in this.timelines &&
+		    m >= this.timelines[m].start &&
+		    m <= this.timelines[m].start + this.timelines[t].time.length)
 		{
 			return this.timelines[m].time[t-this.timelines[m].start];
 		}
 	}
 }
 
-let out = {};
+let debug = {};
 
 let game = new Game();
 game.start();
 
 
 
+
+//tests
+
+setTimeout(()=>{
+	debug["piece"].setSquare(debug["board"].getSquare(1,1))
+}, 1000);
 
 
 
