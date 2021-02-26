@@ -9,6 +9,7 @@
 	height: 10000px;
 	background-image: url("/img/background.svg");
 	z-index: 0;
+	transform: translate(0px, 0px);
 }
 
 #game > *{
@@ -28,7 +29,6 @@ table{
 .boardActive{
 	padding: 10px;
 	border-radius: 7px;
-	transform: translate(10px, 10px);
 }
 
 .boardActive::after{
@@ -40,7 +40,6 @@ table{
 .boardPassive{
 	padding: 5px;
 	border-radius: 3px;
-	transform: translate(15px, 15px);
 }
 
 .boardPassive::after{
@@ -85,10 +84,9 @@ tr:nth-child(2n) > td:nth-child(2n), tr:nth-child(2n+1) > td:nth-child(2n+1){
 	background-image: linear-gradient(#f227, #f227);
 }
 
-.piece
+.pieceMove
 {
-	transition-property: left, top;
-	transition-duration: 2s;
+	position: fixed;
 }
 
 

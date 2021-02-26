@@ -1,4 +1,15 @@
 
+function getLocationElement(element)
+{
+	let elementPosition = element.getBoundingClientRect();
+	let gamePosition = game.$html.getBoundingClientRect();
+	return {
+		x: elementPosition.x - gamePosition.x,
+		y: elementPosition.y - gamePosition.y
+	}
+}
+
+
 class Piece
 {
 	constructor()
@@ -15,11 +26,6 @@ class Piece
 		this.$html.innerText = simbol;
 	}
 	
-	setSquare(square)
-	{
-		square.setPiece(this);
-	}
-	
 	clone()
 	{
 		let out = new Piece(this.simbol);
@@ -27,9 +33,58 @@ class Piece
 		return out;
 	}
 	
-	move()
+	setSquare(square)
 	{
-		throw "Нереализованный метод Piece::move(…).";
+		this.buildupAnimationBefore();
+		square.setPiece(this);
+		this.buildupAnimationAfter();
+		this.loopAnimation(this);
+	}
+	
+	buildupAnimationBefore()
+	{
+		this.animationData = {
+			start: getLocationElement(this.$html),
+			end: undefined
+		};
+	}
+	
+	buildupAnimationAfter()
+	{
+		this.animationData.end = getLocationElement(this.$html);
+		
+		this.$html.classList.add("pieceMove");
+		this.$html.style.left = this.animationData.x + "px";
+		this.$html.style.top = this.animationData.y + "px";
+	}
+	
+	loopAnimation(pieceAnimation)
+	{
+		let move = {
+			x: pieceAnimation.animationData.end.x - pieceAnimation.animationData.start.x,
+			y: pieceAnimation.animationData.end.y - pieceAnimation.animationData.start.y
+		}
+		
+		let speed = 2;
+		
+		let len = Math.sqrt( move.x * move.x + move.y * move.y );
+		if(len > speed)
+		{
+			let k = speed / len;
+			move.x *= k;
+			move.y *= k;
+			pieceAnimation.animationData.start.x += move.x;
+			pieceAnimation.animationData.start.y += move.y;
+			pieceAnimation.$html.style.left = pieceAnimation.animationData.start.x + "px";
+			pieceAnimation.$html.style.top = pieceAnimation.animationData.start.y + "px";
+			requestAnimationFrame(()=>{pieceAnimation.loopAnimation(pieceAnimation);});
+		}
+		else
+		{
+			pieceAnimation.$html.classList.remove("pieceMove");
+			pieceAnimation.$html.style.left = "0";
+			pieceAnimation.$html.style.top = "0";
+		}
 	}
 }
 
@@ -119,11 +174,15 @@ class Board
 		{
 			this.$html.classList.add("boardActive");
 			this.$html.classList.remove("boardPassive");
+			position.x += 10;
+			position.y += 10;
 		}
 		else
 		{
 			this.$html.classList.remove("boardActive");
 			this.$html.classList.add("boardPassive");
+			position.x += 15;
+			position.y += 15;
 		}
 		
 		this.$html.style.left = position.x + "px";
@@ -219,11 +278,11 @@ game.start();
 //tests
 
 setTimeout(()=>{
-	debug["piece"].setSquare(debug["board"].getSquare(1,1))
-}, 1000);
+	debug["piece"].setSquare(debug["board"].getSquare(4,3));
+}, 1600);
 setTimeout(()=>{
 	debug.board.$html.style.left = "200px";
-}, 1500);
+}, 1000);
 
 
 
