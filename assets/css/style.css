@@ -21,6 +21,8 @@ table{
 	width: 160px;
 	height: 160px;
 	z-index: 10;
+	transition-property: left top;
+	transition-duration: .5s;
 }
 
 .boardActive{
@@ -82,4 +84,16 @@ tr:nth-child(2n) > td:nth-child(2n), tr:nth-child(2n+1) > td:nth-child(2n+1){
 .lightTake{
 	background-image: linear-gradient(#f227, #f227);
 }
+
+.piece
+{
+	transition-property: left, top;
+	transition-duration: 2s;
+}
+
+
+
+
+
+
 

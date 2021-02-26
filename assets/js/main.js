@@ -4,6 +4,7 @@ class Piece
 	constructor()
 	{
 		this.$html = document.createElement("div");
+		this.$html.classList.add("piece");
 		this.setFigure("♟");
 		this.square = undefined;
 	}
@@ -117,9 +118,11 @@ class Board
 		if(this.getActive())
 		{
 			this.$html.classList.add("boardActive");
+			this.$html.classList.remove("boardPassive");
 		}
 		else
 		{
+			this.$html.classList.remove("boardActive");
 			this.$html.classList.add("boardPassive");
 		}
 		
@@ -218,6 +221,9 @@ game.start();
 setTimeout(()=>{
 	debug["piece"].setSquare(debug["board"].getSquare(1,1))
 }, 1000);
+setTimeout(()=>{
+	debug.board.$html.style.left = "200px";
+}, 1500);
 
 
 
