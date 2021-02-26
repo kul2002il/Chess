@@ -2,13 +2,12 @@
 function getLocationElement(element)
 {
 	let elementPosition = element.getBoundingClientRect();
-	let gamePosition = game.$html.getBoundingClientRect();
+	let multiversePosition = multiverse.$html.getBoundingClientRect();
 	return {
-		x: elementPosition.x - gamePosition.x,
-		y: elementPosition.y - gamePosition.y
+		x: elementPosition.x - multiversePosition.x,
+		y: elementPosition.y - multiversePosition.y
 	}
 }
-
 
 class Piece
 {
@@ -107,7 +106,7 @@ class Square
 		if (this.piece)
 		{
 			this.$html.append(this.piece.$html);
-			this.piece.getSquare = this;
+			this.piece.square = this;
 		}
 	}
 	getPiece()
@@ -118,13 +117,15 @@ class Square
 
 class Board
 {
-	constructor(t, m)
+	constructor(timeline)
 	{
 		this.$html = document.createElement("table");
 		
+		this.timeline = timeline;
+		
 		this.location = {
-			x: t || 0,
-			y: m || 0,
+			x: 0,
+			y: 0,
 			stepWhite: true
 		};
 		
@@ -140,7 +141,7 @@ class Board
 			}
 			this.$html.append(row);
 		}
-		this.show();
+		multiverse.$html.append(this.$html);
 	}
 	
 	clone()
@@ -188,12 +189,11 @@ class Board
 		this.$html.style.left = position.x + "px";
 		this.$html.style.top = position.y + "px";
 		
-		game.$html.append(this.$html);
 	}
 	
 	getActive()
 	{
-		return true;
+		return (this === this.timeline.head);
 	}
 	
 	getSquare(x,y)
@@ -204,20 +204,55 @@ class Board
 
 class Timeline
 {
-	constructor(parent, start = 0)
+	constructor(parentTimeline, start = 0)
 	{
-		this.parent = parent;
+		this.parent = parentTimeline;
 		this.start = start;
-		this.time = [];
+		this.timeline = [];
 		
 		if(this.parent)
 		{
-			let end = this.parent.time.length - 1;
-			this.time = [new Board(this.parent.time[end])];
+			this.head = parentTimeline.getBoard(start);
 		}
 		else
 		{
-			this.time = [new Board()];
+			this.head = new Board(this);
+		}
+		this.timeline.push(this.head);
+	}
+	
+	getBoard(t)
+	{
+		if (t >= this.start &&
+		    t <= this.start + this.timeline.length)
+		{
+			return this.timeline[t-this.start];
+		}
+	}
+}
+
+class Multiverse
+{
+	constructor()
+	{
+		this.$html = document.getElementById("game");
+		this.timelines = {};
+	}
+	
+	getBoard(t, m)
+	{
+		let timeline = this.getTimeline(m)
+		if (timeline)
+		{
+			return timeline.getBoard(t);
+		}
+	}
+	
+	getTimeline(m)
+	{
+		if (m in this.timelines)
+		{
+			return this.timelines[m];
 		}
 	}
 }
@@ -242,44 +277,33 @@ class Game
 {
 	constructor()
 	{
-		this.$html = document.getElementById("game");
-		this.history = new History();
-	}
-	
-	start()
-	{
-		this.timelines = {0: new Timeline()};
+		this.multiverse = multiverse;
 		
-		let board = this.getBoard(0, 0);
-		board.getSquare(0,0).setPiece(new Piece());
-		debug["piece"] = board.getSquare(0,0).getPiece();
-		debug["board"] = board;
-	}
-	
-	getBoard(t, m)
-	{
-		if (t in this.timelines &&
-		    m >= this.timelines[m].start &&
-		    m <= this.timelines[m].start + this.timelines[t].time.length)
-		{
-			return this.timelines[m].time[t-this.timelines[m].start];
-		}
+		this.multiverse.timelines["0"] = new Timeline();
+		
+		let board = this.multiverse.getBoard(0, 0);
+		board.getSquare(0, 0).setPiece(new Piece());
+		board.show();
 	}
 }
 
+
 let debug = {};
 
+let multiverse = new Multiverse();
 let game = new Game();
-game.start();
 
 
 
 
 //tests
 
+debug["board"] = multiverse.getBoard(0, 0);
+debug["piece"] = debug["board"].getSquare(0, 0).getPiece();
+
 setTimeout(()=>{
 	debug["piece"].setSquare(debug["board"].getSquare(4,3));
-}, 1600);
+}, 1200);
 setTimeout(()=>{
 	debug.board.$html.style.left = "200px";
 }, 1000);
