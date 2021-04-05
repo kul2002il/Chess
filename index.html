@@ -3,9 +3,11 @@
 <head>
 	<title>Chess</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<script defer src="assets/js/vue.js"></script>
-	<script defer type="text/javascript" src="assets/js/main.js"></script>
+	<script defer src="assets/js/logic.js"></script>
+	<script defer src="assets/js/main.js"></script>
+	<script defer src="assets/js/tests.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -16,15 +18,25 @@
 				:message="message"
 			></message>
 		</header>
+		<div class="allBoards">
+			<board v-for="board in allBoards" :key="board.id" :board="board"></board>
+		</div>
 	</div>
 
 
 	<div class="template">
 		<div id="messageTemplate">
 			<div :style="styleObject" class="message">
-				<div class="buttonClose">✖</div>
+				<div class="buttonClose" @click="closeMessage">✖</div>
 				{{message.text}}
 			</div>
+		</div>
+		<div id="boardTemplate">
+			<table :style="styleObject" :class="classObject">
+				<tr v-for="i in [0,1,2,3,4,5,6,7]" :key="i">
+					<td v-for="j in [0,1,2,3,4,5,6,7]" :key="j"></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>
