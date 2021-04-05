@@ -3,11 +3,11 @@
 	padding: 0;
 }
 
-#game{
+#app{
 	position: absolute;
 	width: 10000px;
 	height: 10000px;
-	background-image: url("/img/background.svg");
+	background-image: url("../../img/background.svg");
 	z-index: 0;
 }
 
@@ -32,7 +32,7 @@ table{
 }
 
 .boardActive::after{
-	content: url("/img/arrow.svg");
+	content: url("../../img/arrow.svg");
 	position: absolute;
 	transform: translate(170px, -160px);
 }
