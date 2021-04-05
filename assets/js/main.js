@@ -1,19 +1,16 @@
 
 let data = {
-	messages: [
-		{
-			text: "Hello",
-			color: "green",
-			id: id.get(),
-		},
-		{
-			text: "Error",
-			color: "red",
-			id: id.get(),
-		},
-	],
+	messages: [],
 	allBoards: allBoards,
 };
+
+function message(text, color = "green"){
+	data.messages.push({
+		text: text,
+		color: color,
+		id: id.get(),
+	});
+}
 
 Vue.component("message",{
 	props: ["message"],
@@ -66,3 +63,7 @@ let app = new Vue({
 	{
 	},
 });
+
+
+
+document.getElementById("template").remove();
