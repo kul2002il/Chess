@@ -10,8 +10,22 @@
 <body>
 	<div id="app">
 		<header>
-			{{text}}
+			<message
+				v-for="message in messages"
+				:key="message.id"
+				:message="message"
+			></message>
 		</header>
+	</div>
+
+
+	<div class="template">
+		<div id="messageTemplate">
+			<div :style="styleObject" class="message">
+				<div class="buttonClose">✖</div>
+				{{message.text}}
+			</div>
+		</div>
 	</div>
 </body>
 </html>
