@@ -98,6 +98,10 @@ td{
 	text-align: center;
 }
 
+.square{
+	height: 100%;
+}
+
 tr:nth-child(2n) > td:nth-child(2n), tr:nth-child(2n+1) > td:nth-child(2n+1){
 	background-color: #d2a973;
 }

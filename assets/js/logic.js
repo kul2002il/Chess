@@ -3,16 +3,66 @@
 */
 
 class Incrementer{
-	constructor(){
+	constructor()
+	{
 		this.counter = 0;
 	}
-	get(){
+	get()
+	{
 		return this.counter++;
 	}
 }
 let id = new Incrementer();
 
 let allBoards = [];
+
+class Piece{
+	constructor(board, piece)
+	{
+		this.char = "♟";
+		this.team = "white";
+		this.position = {y:0, x:0};
+		if (piece)
+		{
+			this.char = piece.char;
+			this.team = piece.team;
+			this.position = Object.assign({}, piece.position);
+		}
+		this.board = board;
+		if(board)
+		{
+			this.board.setPiece(this);
+		}
+	}
+	isMovable(coord)
+	{
+		return coord in
+			[
+				{m:0, t:0, y:1, x:0},
+				{m:1, t:0, y:0, x:0},
+			];
+	}
+	isTakest(coord)
+	{
+		return coord in
+			[
+				{m:0, t:0, y:1, x:1},
+				{m:0, t:0, y:1, x:-1},
+				{m:1, t:1, y:0, x:0},
+				{m:1, t:-1, y:0, x:0},
+			];
+	}
+	move(coord)
+	{
+		if(this.isMovable(coord) || this.isTakest(coord) || 1)
+		{
+			this.position = {
+				y: coord.y,
+				x: coord.x,
+			};
+		}
+	}
+}
 
 class Board {
 	constructor(board)
@@ -25,13 +75,20 @@ class Board {
 			m: 3,
 			t: 2,
 		};
+		this.listPiece = [];
+		if(board)
+		{
+			board.listPiece.forEach(piece=>
+			{
+				this.listPiece.push(new Piece);
+			});
+		}
 		allBoards.push(this);
 	}
 	continue()
 	{
 		if(this.contunous)
 		{
-			//throw "Доску нельзя продолжить дважды.";
 			return this.branche();
 		}
 		this.contunous = new Board(this);
@@ -46,7 +103,8 @@ class Board {
 		if(newBoard.parent.position.t % 2)
 		{
 			let minM = 100000;
-			allBoards.forEach(item => {
+			allBoards.forEach(item =>
+			{
 				if (minM > item.position.m) minM = item.position.m;
 			});
 			newBoard.position.m = minM - 1;
@@ -54,7 +112,8 @@ class Board {
 		else
 		{
 			let maxM = -100000;
-			allBoards.forEach(item => {
+			allBoards.forEach(item =>
+			{
 				if (maxM < item.position.m) maxM = item.position.m;
 			});
 			newBoard.position.m = maxM + 1;
@@ -62,9 +121,22 @@ class Board {
 		this.tree.push(newBoard);
 		return newBoard;
 	}
-	showBrance()
+	setPiece(piece)
 	{
-		console.log(JSON.stringify(this));
+		this.listPiece.push(piece);
+	}
+	getPiece(y, x)
+	{
+		let out = undefined;
+		this.listPiece.forEach(value =>
+		{
+			if (value.position.y == y &&
+				value.position.y == y)
+			{
+				out = value;
+			}
+		});
+		return out;
 	}
 }
 
@@ -75,7 +147,8 @@ class Multiverse{
 	}
 	start()
 	{
-		new Board();
+		let startBoard = new Board();
+		new Piece(startBoard);
 	}
 }
 
