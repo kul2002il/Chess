@@ -29,10 +29,12 @@ class Piece{
 			this.position = Object.assign({}, piece.position);
 		}
 		this.board = board;
+		console.log(board);
 		if(board)
 		{
-			this.board.setPiece(this);
+			//throw "При создании фигуры не задана доска."
 		}
+		this.board.setPiece(this);
 	}
 	isMovable(coord)
 	{
@@ -54,9 +56,10 @@ class Piece{
 	}
 	move(coord)
 	{
-		if(this.isMovable(coord) || this.isTakest(coord) || 1)
+		if (this.isMovable(coord) || this.isTakest(coord) || 1)
 		{
-			this.position = {
+			let stepBoard = this.board.continue();
+			stepBoard.getPiece(this.position.y, this.position.x).position = {
 				y: coord.y,
 				x: coord.x,
 			};
@@ -80,7 +83,7 @@ class Board {
 		{
 			board.listPiece.forEach(piece=>
 			{
-				this.listPiece.push(new Piece);
+				this.listPiece.push(new Piece(this));
 			});
 		}
 		allBoards.push(this);

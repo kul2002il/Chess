@@ -117,7 +117,6 @@ Vue.component("square",{
 					data.square.x = undefined;
 				}
 			}
-			console.log(this.board.position);
 			data.square.m = this.board.position.m;
 			data.square.t = this.board.position.t;
 			data.square.y = this.square.y;
