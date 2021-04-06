@@ -1,0 +1,26 @@
+{
+	"info": {
+		"_postman_id": "d37ebe56-849a-4cbd-a8f0-a05b6b2ba7d0",
+		"name": "Game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "step",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/game.php",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"game.php"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
