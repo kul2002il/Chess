@@ -12,7 +12,7 @@ class Incrementer{
 }
 let id = new Incrementer();
 
-let allBoards = []
+let allBoards = [];
 
 class Board {
 	constructor(board)
@@ -31,7 +31,8 @@ class Board {
 	{
 		if(this.contunous)
 		{
-			throw "Доску нельзя продолжить дважды.";
+			//throw "Доску нельзя продолжить дважды.";
+			return this.branche();
 		}
 		this.contunous = new Board(this);
 		this.contunous.position.m = this.position.m;

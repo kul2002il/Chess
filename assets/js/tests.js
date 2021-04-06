@@ -1,9 +1,12 @@
-allBoards[0].continue().continue().continue().continue().branche();
+allBoards[0].continue().continue().continue().continue().continue();
 
-allBoards[0].branche();
-allBoards[0].branche().continue().continue();
+allBoards[0].continue();
+allBoards[0].continue().continue().continue();
 
-allBoards[1].branche().continue();
-allBoards[1].branche();
+allBoards[1].continue().continue();
+allBoards[1].continue();
 
-message("Tests complete.")
+allBoards[2].continue();
+allBoards[2].continue();
+
+message("Tests complete.");
