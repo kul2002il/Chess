@@ -1,6 +1,6 @@
 <?php
 
-require_once "Board.php";
+spl_autoload_register();
 
 class Game{
 	private $allBoard = [];

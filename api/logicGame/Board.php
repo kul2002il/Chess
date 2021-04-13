@@ -1,6 +1,6 @@
 <?php
 
-require_once "Game.php";
+spl_autoload_register();
 
 $allBoards = [];
 
@@ -12,7 +12,7 @@ class Board{
 		"t" => 0,
 	];
 
-	public function __construct($game, $board = null)
+	public function __construct($game)
 	{
 		$this->game = $game;
 		$game->pushBoard($this);
