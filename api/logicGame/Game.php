@@ -3,7 +3,7 @@
 require_once "Board.php";
 
 class Game{
-	private $allBoard = [];
+	private $multiverse = [];
 
 	public function __construct()
 	{
@@ -17,4 +17,3 @@ class Game{
 		]);
 	}
 }
-

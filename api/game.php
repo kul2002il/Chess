@@ -2,13 +2,11 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once "functions.php";
-/*
-require_once "logicGame/Board.php";
+
 require_once "logicGame/Game.php";
 
 new Game();
-*/
+
 
 $hist = [
 	"0m1twe2-0m1twe4",
@@ -66,8 +64,6 @@ function step($multiverse, string $stepStr)
 		return $error;
 	}
 
-	//$boardIn = "{$step["in"]["mult"]}m{$step["in"]["time"]}t{$step["in"]["color"]}";
-	//$boardOut = "{$step["out"]["mult"]}m{$step["out"]["time"]}t{$step["out"]["color"]}";
 	$checkEdentityBoard =
 		$step["in"]["mult"] == $step["out"]["mult"] &&
 		$step["in"]["time"] == $step["out"]["time"];
