@@ -7,13 +7,25 @@ class Game{
 
 	public function __construct()
 	{
-		new Board($this);
+		Board::init($this);
 	}
 
-	public function pushBoard($board)
+	public function pushBoard(Board $board)
 	{
-		array_push($this->allBoard, [
-			$board->position["m"] ."_". $board->position["t"] => $board
-		]);
+		$this->multiverse[$board->coordToStr()] = $board;
+	}
+
+	public function toArray()
+	{
+		$out = [];
+		foreach ($this->multiverse as $key => $board)
+		{
+			$out[$key] = $board->toArray();
+		}
+		return $out;
+	}
+
+	public function step($strStep)
+	{
 	}
 }

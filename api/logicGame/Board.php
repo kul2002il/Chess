@@ -10,18 +10,29 @@ class Board{
 	private $position = [
 		"m" => 0,
 		"t" => 0,
+		"step"
 	];
 
 	public function __construct($game)
 	{
 		$this->game = $game;
-		$game->pushBoard($this);
+		$this->game->pushBoard($this);
 	}
 
-	public static function init()
+	public function coordToStr()
 	{
-		$out = new Board();
-		$out->$setPiece = [
+		return $this->position["m"] ."m". $this->position["t"] . "t";
+	}
+
+	public function toArray()
+	{
+		return $this->setPiece;
+	}
+
+	public static function init($game)
+	{
+		$out = new Board($game);
+		$out->setPiece = [
 			"a1" => "♖",
 			"b1" => "♘",
 			"c1" => "♗",
